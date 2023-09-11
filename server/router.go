@@ -1,17 +1,20 @@
 package server
 
 import (
+	"github.com/gin-gonic/gin"
+	swaggerfiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 	"os"
 	"singo/api"
+	"singo/docs"
 	"singo/middleware"
-
-	"github.com/gin-gonic/gin"
 )
 
-// NewRouter 路由配置
-func NewRouter() *gin.Engine {
+// InitRouter 路由配置
+func InitRouter() *gin.Engine {
 	r := gin.Default()
-
+	docs.SwaggerInfo.BasePath = ""
+	r.GET("swagger/*any", ginSwagger.WrapHandler(swaggerfiles.Handler))
 	// 中间件, 顺序不能改
 	r.Use(middleware.Session(os.Getenv("SESSION_SECRET")))
 	r.Use(middleware.Cors())

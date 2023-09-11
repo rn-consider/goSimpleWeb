@@ -14,6 +14,6 @@ func main() {
 
 	// 装载路由
 	gin.SetMode(os.Getenv("GIN_MODE"))
-	r := server.NewRouter()
+	r := server.InitRouter()
 	r.Run(":3000")
 }

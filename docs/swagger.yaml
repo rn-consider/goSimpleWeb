@@ -1,0 +1,117 @@
+definitions:
+  serializer.Response:
+    properties:
+      code:
+        type: integer
+      data: {}
+      error:
+        type: string
+      msg:
+        type: string
+    type: object
+info:
+  contact: {}
+paths:
+  /api/v1/user/login:
+    post:
+      consumes:
+      - application/json
+      description: 用户登录接口用于验证用户身份并返回JWT令牌
+      parameters:
+      - description: 用户名
+        in: formData
+        name: user_name
+        required: true
+        type: string
+      - description: 密码
+        in: formData
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      summary: 用户登录
+      tags:
+      - 用户
+  /api/v1/user/logout:
+    post:
+      consumes:
+      - application/json
+      description: 用户登出接口用于清除用户会话并登出
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 用户登出
+      tags:
+      - 用户
+  /api/v1/user/me:
+    get:
+      consumes:
+      - application/json
+      description: 用户详情接口用于获取当前用户的详细信息
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      security:
+      - ApiKeyAuth: []
+      summary: 用户详情
+      tags:
+      - 用户
+  /api/v1/user/register:
+    post:
+      consumes:
+      - application/json
+      description: 用户注册接口用于创建新用户账号
+      parameters:
+      - description: 用户名
+        in: formData
+        name: user_name
+        required: true
+        type: string
+      - description: 密码
+        in: formData
+        name: password
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/serializer.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/serializer.Response'
+      summary: 用户注册
+      tags:
+      - 用户
+swagger: "2.0"
